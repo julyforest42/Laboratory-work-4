@@ -1,0 +1,48 @@
+name: Data Schema Code Convention
+
+on:
+  push:
+    paths:
+      - ".github/workflows/DataSchemaCodeConvention.yml"
+      - "3.1-GitHubActions/DataSchema*.json"
+      - "3.1-GitHubActions/DataInstance.json"
+  workflow_dispatch:
+    inputs:
+      experiment:
+        description: "Choose the original or intentionally modified schema"
+        required: true
+        default: original
+        type: choice
+        options:
+          - original
+          - modified
+
+jobs:
+  DataSchemaCodeConvention:
+    name: Check JSON Schema and instance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Sourcemeta JSON Schema CLI 17.2.1
+        uses: sourcemeta/jsonschema@v17.2.1
+      - name: Print CLI version
+        run: jsonschema version
+      - name: Validate selected schema
+        shell: bash
+        env:
+          EXPERIMENT: ${{ inputs.experiment || 'original' }}
+        run: |
+          case "$EXPERIMENT" in
+            original) SCHEMA="3.1-GitHubActions/DataSchema.json" ;;
+            modified) SCHEMA="3.1-GitHubActions/DataSchemaModified.json" ;;
+            *) echo "Unknown experiment: $EXPERIMENT"; exit 2 ;;
+          esac
+          INSTANCE="3.1-GitHubActions/DataInstance.json"
+          echo "Experiment: $EXPERIMENT"
+          echo "Schema file: $SCHEMA"
+          jsonschema metaschema "$SCHEMA" --verbose
+          if [ "$EXPERIMENT" = "original" ]; then
+            jsonschema lint "$SCHEMA"
+          fi
+          jsonschema validate "$SCHEMA" "$INSTANCE" --format-assertion --verbose

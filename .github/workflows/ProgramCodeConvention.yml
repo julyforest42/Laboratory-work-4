@@ -1,0 +1,44 @@
+name: Program Code Convention
+
+on:
+  push:
+    paths:
+      - ".github/workflows/ProgramCodeConvention.yml"
+      - "3.1-GitHubActions/ProgramCode*.js"
+      - "3.1-GitHubActions/biome.json"
+  workflow_dispatch:
+    inputs:
+      experiment:
+        description: "Choose the original or intentionally modified JavaScript module"
+        required: true
+        default: original
+        type: choice
+        options:
+          - original
+          - modified
+
+jobs:
+  ProgramCodeConvention:
+    name: JavaScript code conventions with Biome
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Execute the chosen program and check code conventions
+        shell: bash
+        env:
+          EXPERIMENT: ${{ inputs.experiment || 'original' }}
+        run: |
+          case "$EXPERIMENT" in
+            original) CODE="3.1-GitHubActions/ProgramCode.js" ;;
+            modified) CODE="3.1-GitHubActions/ProgramCodeModified.js" ;;
+            *) echo "Unknown experiment: $EXPERIMENT"; exit 2 ;;
+          esac
+          echo "Experiment: $EXPERIMENT"
+          echo "JavaScript module: $CODE"
+          node "$CODE"
+          npx --yes @biomejs/biome@1.9.4 check --config-path=3.1-GitHubActions "$CODE"

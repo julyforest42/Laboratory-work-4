@@ -1,0 +1,156 @@
+{
+    "catalog": {
+        "exercises": [
+            {
+                "exerciseId": "EX-001",
+                "name": "Піднімання палиці перед собою",
+                "reference": {
+                    "targetRepetitions": 10,
+                    "phases": [
+                        {
+                            "number": 1,
+                            "name": "Початкове положення",
+                            "referenceState": {
+                                "xCm": 0,
+                                "yCm": 0,
+                                "zCm": 0,
+                                "tiltDeg": 0,
+                                "yawDeg": 0,
+                                "rollDeg": 0
+                            },
+                            "positionToleranceCm": 5,
+                            "angleToleranceDeg": 10
+                        },
+                        {
+                            "number": 2,
+                            "name": "Піднімання",
+                            "referenceState": {
+                                "xCm": 0,
+                                "yCm": 40,
+                                "zCm": 0,
+                                "tiltDeg": 0,
+                                "yawDeg": 0,
+                                "rollDeg": 0
+                            },
+                            "positionToleranceCm": 5,
+                            "angleToleranceDeg": 10
+                        },
+                        {
+                            "number": 3,
+                            "name": "Повернення",
+                            "referenceState": {
+                                "xCm": 0,
+                                "yCm": 0,
+                                "zCm": 0,
+                                "tiltDeg": 0,
+                                "yawDeg": 0,
+                                "rollDeg": 0
+                            },
+                            "positionToleranceCm": 5,
+                            "angleToleranceDeg": 10
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "currentTraining": {
+        "exerciseId": "EX-001",
+        "startedAt": "2026-10-24T08:00:00+03:00",
+        "soundEnabled": true,
+        "observations": [
+            {
+                "capturedAt": "2026-10-24T08:00:00.100+03:00",
+                "phaseNumber": 2,
+                "isValid": true,
+                "state": {
+                    "xCm": 0,
+                    "yCm": 40,
+                    "zCm": 0,
+                    "tiltDeg": 18,
+                    "yawDeg": 0,
+                    "rollDeg": 0
+                },
+                "deviations": [
+                    {
+                        "type": "tilt",
+                        "value": 18
+                    }
+                ],
+                "cues": [
+                    {
+                        "channel": "text",
+                        "messageType": "correction",
+                        "text": "Вирівняй палицю горизонтально"
+                    },
+                    {
+                        "channel": "audio",
+                        "messageType": "correction",
+                        "text": "Вирівняй палицю горизонтально"
+                    }
+                ]
+            },
+            {
+                "capturedAt": "2026-10-24T08:00:00.200+03:00",
+                "phaseNumber": 2,
+                "isValid": true,
+                "state": {
+                    "xCm": 0,
+                    "yCm": 40,
+                    "zCm": 0,
+                    "tiltDeg": 0,
+                    "yawDeg": 0,
+                    "rollDeg": 0
+                },
+                "deviations": [],
+                "cues": [
+                    {
+                        "channel": "text",
+                        "messageType": "correction_confirmed",
+                        "text": "Відхилення усунуто"
+                    }
+                ]
+            },
+            {
+                "capturedAt": "2026-10-24T08:00:00.800+03:00",
+                "phaseNumber": 2,
+                "isValid": false,
+                "state": null,
+                "deviations": [],
+                "cues": [
+                    {
+                        "channel": "text",
+                        "messageType": "tracking_lost",
+                        "text": "Маркер не видно. Поверни палицю в кадр"
+                    }
+                ]
+            }
+        ]
+    },
+    "results": [
+        {
+            "resultId": "TR-20261023-0001",
+            "exerciseId": "EX-001",
+            "startedAt": "2026-10-23T17:00:00+03:00",
+            "activeDurationSeconds": 300,
+            "repetitionCount": 10,
+            "validObservationCount": 3000,
+            "withinToleranceCount": 2700,
+            "accuracyPercent": 90,
+            "deviationTypes": [
+                "tilt"
+            ]
+        },
+        {
+            "resultId": "TR-20261023-0002",
+            "exerciseId": "EX-001",
+            "startedAt": "2026-10-23T18:00:00+03:00",
+            "activeDurationSeconds": 0,
+            "repetitionCount": 0,
+            "validObservationCount": 0,
+            "withinToleranceCount": 0,
+            "accuracyPercent": null,
+            "deviationTypes": []
+        }
+    ]
+}
